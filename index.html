@@ -1,0 +1,744 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="https://cache.amap.com/lbs/static/main.css"/>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+  <link href="css/h_style.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <!-- <embed src="Brian Crain - Canon In D.mp3" hidden="true" autostart="true" loop="true" id="rnk"> -->
+  <link rel="stylesheet" type="text/css" href="css/normalize.css" />
+  <link rel="stylesheet" type="text/css" href="css/default.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style type="text/css">
+    body,html{
+      height: 100%;
+      margin: 0px;
+    }
+    #container{
+      position: absolute;
+      width:60%;
+      height: 60%;
+      left: 13px;
+      margin-top: 12%;
+    }
+    #tip1{
+        background-color: #ddf;
+        color: #333;
+        box-shadow: 0px 2px 0px 0px rgb(224, 167, 238);
+        position: absolute;
+        top: 150px;
+        left: 10px;
+        padding:4px;
+        border-radius: 15px 0px 0px 15px;
+        overflow: hidden;
+        line-height: 20px;
+    }
+    #tip1 input[type="text"] {
+        height: 25px;
+        border: 0;
+        padding-left: 5px;
+        width: 280px;
+        border-radius: 10px 0px 0px 10px ;
+        outline: none;
+    }
+    #hid{
+        visibility:hidden; 
+    }
+    #tip2 {
+            background-color: #ddf;
+            color: #333;
+            box-shadow: 0px 2px 0px 0px rgb(224, 167, 238);
+            position: absolute;
+            top: 150px;
+            padding:4px;
+            left: 440px;
+            border-radius: 0px 15px 15px 0px;
+            overflow: hidden;
+            line-height: 20px;
+        }
+        #tip2 input[type="text"] {
+            height: 25px;
+            border: 0;
+            padding-left: 5px;
+            width: 280px;
+            border-radius:0px 10px 10px 0px;
+            outline: none   ;
+        }
+        #hid{
+            visibility:hidden; 
+        }
+    #tip3 {
+            background-color: #ddf;
+            color: #333;
+            box-shadow: 1px 2px 1px 0px rgb(224, 167, 238);
+            border: none;
+            padding: 4px;
+            position: absolute;
+            top: 100px;
+            left:10px;
+            border-radius: 15px;
+            overflow: hidden;
+            line-height: 20px;
+        }
+        #tip3 input[type="text"] {
+            height: 25px;
+            line-height: center;
+            border: 0;
+            padding: 5px;
+            width: 353px;
+            border-radius: 10px;
+            outline: none;
+        }
+        #hid{
+            visibility:hidden; 
+        }
+  </style>
+  <title>黑龙江大学校园导航</title>
+</head>
+<body>
+    <div id="main_all"></div>
+    <div class="htmleaf-container">           
+                
+    </div>
+    <div id="H_pic">
+        
+    </div>
+   <div>
+       <button onclick="three()" id="h-button1">3D</button>
+       <button onclick="two()" id="h-button2">2D</button>
+    </div> 
+    <div id="tip1">
+        <input type="text" id="s_inp" placeholder="查询信息">
+        <button id="btnLogin" hidefocus="true" >搜索</button>
+  </div>
+    <div id="tip2">
+        <button onclick="main()">查找</button>
+        <input type="text" id="start" name="start" placeholder="请输入起点:(查找到主楼的最短路径)">
+        
+  </div>
+    <div id="tip3">
+      
+      <input type="text" id="start2" name="start2" placeholder="请输入起点：">
+      <button  onclick="main1()">查找</button>
+      <input type="text" id="final2" name="final2" placeholder="请输入终点：">
+      
+  </div>
+
+  <div id="container" tabindex="0">
+
+  </div>
+
+  <div id="showw">
+
+  </div>
+
+  <div id="panel">
+      
+  </div>
+
+  <div id="s_jieshao">
+      <h3>    黑龙江大学</h3>
+      <h4 id="h4">  黑龙江大学诞生于1941年，前身是在延安成立的中国人民抗日军政大学第三分校。教育部、国防科工局与黑龙江省全国重点建设大学，全国首批“卓越法律与新闻人才教育培养计划”、“海外高层次人才引进计划”、“ 国家建设高水平大学公派研究生项目”、“教育部来华留学示范基地”入选高校。“世界翻译教育联盟”、“中俄新闻教育高校联盟”创始成员，“中俄大学联盟”、“上海合作组织大学(KHP)”主要成员、“一带一路”智库合作联盟理事单位。中国政府奖学金来华留学生接收院校，全国17所国家教育体制改革试点学院所在高校之一。</h4>
+  </div>
+
+
+  <!-- 调用高德api接口在官网申请key -->
+  <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.1&key=ee310d52c06aa4fe9b1304fbaf3c67ff&plugin=AMap.Walking"></script>
+  <script src="js/jquery-2.1.1.min.js"></script>
+  <script>
+      $(function(){
+          $('body').autoBackgroundScroll({
+              speed: 0.3,
+              direction1: 'bottom',
+              direction2: 'right',
+              imageWidth: 2000,
+              imageHeight: 2000
+          });
+      });
+  </script>
+<script src="s-info.js"></script>
+<script type="text/javascript"> 
+    function openNew(){
+        //获取页面的高度和宽度
+        var sWidth=document.body.scrollWidth;
+        var sHeight=document.body.scrollHeight;
+        
+        //获取页面的可视区域高度和宽度
+        var wHeight=document.documentElement.clientHeight;
+        
+        var oMask=document.createElement("div");
+            oMask.id="mask";//创建div，mask弹窗外区域oMask
+            oMask.style.height=sHeight+"px";
+            oMask.style.width=sWidth+"px";//宽高等于页面宽高
+            document.body.appendChild(oMask);//加入body
+        var oLogin=document.createElement("div");
+            oLogin.id="login";//创建弹窗
+            document.body.appendChild(oLogin);
+        var loginCon=document.createElement("div");
+            loginCon.id = "loginCon";
+            document.getElementById("login").appendChild(loginCon);
+        var close=document.createElement("div");
+            close.id = "close";
+            document.getElementById("loginCon").appendChild(close);	
+            //oLogin.innerHTML="<div id='loginCon'><div id='close'>点击关闭</div></div>";//创建！
+            close.innerHTML = "点击关闭";
+            
+        
+        //获取登陆框的宽和高
+        var dHeight=oLogin.offsetHeight;
+        var dWidth=oLogin.offsetWidth;
+            //设置登陆框的left和top
+            oLogin.style.left=sWidth/2-dWidth/2+"px";
+            oLogin.style.top=wHeight/2-dHeight/2+"px";
+        //点击关闭按钮
+        var oClose=document.getElementById("close");
+        
+            //点击登陆框以外的区域也可以关闭登陆框
+            oClose.onclick=oMask.onclick=function(){
+                        document.body.removeChild(oLogin);
+                        document.body.removeChild(oMask);
+                        };
+        var point = document.getElementById("s_inp").value;;
+            for (var i = 0; i < 11; i++) {
+                    if(point==allInfo[i].name)
+                {
+                    
+                    loginCon.style.background = 'url('+allInfo[i].img+')';
+                    
+                    document.getElementById("loginCon").innerHTML = allInfo[i].name+ '<br>' +allInfo[i].Info;
+                            
+                }
+            }
+    };
+
+
+    window.onload=function(){
+        var oBtn=document.getElementById("btnLogin");
+                    //点击登录按钮
+                    oBtn.onclick=function(){
+                        openNew();
+                        // return false;
+                        }
+        // alert("正在获取您的当前位置");
+        var defaultLayer = new AMap.TileLayer({textIndex:15});
+        var traffic = new AMap.TileLayer.Traffic();
+        var windowsArr = [];
+        var marker = [];
+        
+        var map = new AMap.Map('container',{        //2D
+            resizeEnable: true,
+            zoom: 20,
+            center: [126.62444, 45.70727],
+            layers: [
+                    defaultLayer,//默认图层
+                    traffic,//实时交通图层
+                    new AMap.Buildings()
+                ],
+                keyboardEnable: false
+        }); 
+        walking = new AMap.Walking({
+            map: map,
+        });    
+        var lnglats=[                       //各个位置
+        [126.6148700000,45.7081800000],     //主楼
+        [126.6140600000,45.7091300000],     //体育馆
+        [126.6172546148,45.7080710729],     //联通广场
+        [126.6204000000,45.7090800000],     //体育场
+        [126.6196200000,45.7065500000],     //A区食堂
+        [126.6223500000,45.7092300000],     //汇文楼  
+        [126.6230200000,45.7067700000],     //综合楼
+        [126.6246628761,45.7067899089],     //3号楼
+        [126.6244400000,45.7072700000],     //4号楼
+        [126.6268600000,45.7071200000],     //C区游泳馆
+        [126.6292977333,45.7074379868]      //晨曦广场
+        ];
+        var infoWindow = new AMap.InfoWindow({offset:new AMap.Pixel(0,-30)});
+        for(var i= 0,marker;i<lnglats.length;i++){
+            var marker=new AMap.Marker({
+                position:lnglats[i],
+                map:map
+            });
+            marker.content='我是第'+(i+1)+'个位置';
+            marker.on('click',markerClick);
+            marker.emit('click',{target:marker});
+        }
+        function markerClick(e){
+            infoWindow.setContent(e.target.content);
+            infoWindow.open(map, e.target.getPosition());
+        }
+        AMap.plugin(['AMap.ToolBar','AMap.Scale','AMap.OverView'],
+        function(){                                                
+            map.addControl(new AMap.ToolBar());
+
+            map.addControl(new AMap.Scale());
+
+            map.addControl(new AMap.OverView({isOpen:true}));
+        });
+        var marker = new AMap.Marker({
+            position: [126.62444, 45.70727]
+        });
+        marker.setMap(map);
+        var circle1 = new AMap.Circle({
+            center1: [126.62444, 45.70727],
+            radius: 30,
+            fillOpacity:0.2,
+            strokeWeight:1
+        })
+        circle1.setMap(map);
+        map.setFitView()
+        var info1 = new AMap.InfoWindow({
+            content:"<br>您当前的位置是黑龙江大学4号教学楼",
+            offset:new AMap.Pixel(0,-28)
+        })
+        info1.open(map,marker.getPosition())
+    }
+    
+    function two(){
+        var defaultLayer = new AMap.TileLayer({textIndex:15});
+        var traffic = new AMap.TileLayer.Traffic();
+        var windowsArr = [];
+        var marker = [];
+        
+        var map = new AMap.Map('container',{        //2D
+            resizeEnable: true,
+            zoom: 20,
+            center: [126.62444, 45.70727],
+            layers: [
+                    defaultLayer,//默认图层
+                    traffic,//实时交通图层
+                    new AMap.Buildings()
+                ],
+                keyboardEnable: false
+            }); 
+            walking = new AMap.Walking({
+                map: map,
+        });    
+    var lnglats=[                                                        //各个位置
+        [126.6148700000,45.7081800000],     //主楼
+        [126.6140600000,45.7091300000],     //体育馆
+        [126.6172546148,45.7080710729],     //联通广场
+        [126.6204000000,45.7090800000],     //体育场
+        [126.6196200000,45.7065500000],     //A区食堂
+        [126.6223500000,45.7092300000],     //汇文楼  
+        [126.6230200000,45.7067700000],     //综合楼
+        [126.6246628761,45.7067899089],     //3号楼
+        [126.6244400000,45.7072700000],     //4号楼
+        [126.6268600000,45.7071200000],     //C区游泳馆
+        [126.6292977333,45.7074379868]      //晨曦广场
+    ];
+    var infoWindow = new AMap.InfoWindow({offset:new AMap.Pixel(0,-30)});
+    for(var i= 0,marker;i<lnglats.length;i++){
+          var marker=new AMap.Marker({
+              position:lnglats[i],
+              map:map
+          });
+        marker.content='我是第'+(i+1)+'个位置';
+        marker.on('click',markerClick);
+        marker.emit('click',{target:marker});
+    }
+    function markerClick(e){
+        infoWindow.setContent(e.target.content);
+        infoWindow.open(map, e.target.getPosition());
+    }
+    AMap.plugin(['AMap.ToolBar','AMap.Scale','AMap.OverView'],
+    function(){                                                
+        map.addControl(new AMap.ToolBar());
+
+        map.addControl(new AMap.Scale());
+
+        map.addControl(new AMap.OverView({isOpen:true}));
+    });
+    var marker = new AMap.Marker({
+        position: [126.62444, 45.70727]
+    });
+    marker.setMap(map);
+    var circle1 = new AMap.Circle({
+        center1: [126.62444, 45.70727],
+        radius: 30,
+        fillOpacity:0.2,
+        strokeWeight:1
+    })
+    circle1.setMap(map);
+    map.setFitView()
+    var info1 = new AMap.InfoWindow({
+        content:"<br>您当前的位置是黑龙江大学4号教学楼",
+        offset:new AMap.Pixel(0,-28)
+    })
+    info1.open(map,marker.getPosition())
+
+    }
+
+    function three (){ 
+        var defaultLayer = new AMap.TileLayer({textIndex:15});
+        var traffic = new AMap.TileLayer.Traffic();                        //3D
+      var map = new AMap.Map('container', {
+    pitch:75,
+    viewMode:'3D',
+    zoom: 20,
+    expandZoomRange:true,
+    zooms:[3,20],
+    center:[126.62444, 45.70727],
+    layers: [
+        defaultLayer,//默认图层
+        traffic//实时交通图层
+    ],
+  });
+ 
+   var lnglats=[
+   [126.6148700000,45.7081800000],     //主楼
+   [126.6140600000,45.7091300000],     //体育馆
+   [126.6172546148,45.7080710729],     //联通广场
+   [126.6204000000,45.7090800000],     //体育场
+   [126.6196200000,45.7065500000],     //A区食堂
+   [126.6223500000,45.7092300000],     //汇文楼  
+   [126.6230200000,45.7067700000],     //综合楼
+   [126.6246628761,45.7067899089],     //3号楼
+   [126.6244400000,45.7072700000],     //4号楼
+   [126.6268600000,45.7071200000],     //C区游泳馆
+   [126.6292977333,45.7074379868]      //晨曦广场
+     ];
+    var infoWindow = new AMap.InfoWindow({offset:new AMap.Pixel(0,-30)});
+    for(var i= 0,marker;i<lnglats.length;i++){
+          var marker=new AMap.Marker({
+              position:lnglats[i],
+              map:map
+          });
+        marker.content='我是第'+(i+1)+'个位置';
+        marker.on('click',markerClick);
+        marker.emit('click',{target:marker});
+    }
+    function markerClick(e){
+        infoWindow.setContent(e.target.content);
+        infoWindow.open(map, e.target.getPosition());
+    }
+      AMap.plugin(['AMap.ToolBar','AMap.Scale','AMap.OverView'],
+    function(){                                                
+        map.addControl(new AMap.ToolBar());
+
+        map.addControl(new AMap.Scale());
+
+        map.addControl(new AMap.OverView({isOpen:true}));
+});
+var marker = new AMap.Marker({
+    position: [126.62444, 45.70727]
+});
+marker.setMap(map);
+var circle1 = new AMap.Circle({
+    center1: [126.62444, 45.70727],
+    radius: 30,
+    fillOpacity:0.2,
+    strokeWeight:1
+})
+circle1.setMap(map);
+map.setFitView()
+var info1 = new AMap.InfoWindow({
+    content:"<br>您当前的位置是黑龙江大学4号教学楼",
+    offset:new AMap.Pixel(0,-28)
+})
+info1.open(map,marker.getPosition())
+ 
+
+  }
+  
+  </script>
+  <script>  
+function Graph(v0) {
+    this.vertices = v0; //vertices源点
+    this.allInfo = [];
+    var info0 = new Object();
+    var info1 = new Object();
+    var info2 = new Object();
+    var info3 = new Object();
+    var info4 = new Object();
+    var info5 = new Object();
+    var info6 = new Object();
+    var info7 = new Object();
+    var info8 = new Object();
+    var info9 = new Object();
+    var info10 = new Object();
+
+    info0.name = '黑龙江大学主楼';
+    info0.num = 0;
+    info0.Info = '哈尔滨三类保护建筑,黑龙江大学主楼的设计，以俄罗斯社会主义民族风格为基础，在装饰上融入了很多中国风格。';
+    info0.img = 's-图片/主楼.png';
+
+    info1.name = '黑龙江大学体育馆';
+    info1.num = 1;
+    info1.Info = '体育馆内设有一个主馆、三个副馆和贵宾室、会议室、接待室、记者室、新闻发布中心、兴奋剂检测中心、等辅助设施。馆内配套设施齐全，设备先进，是一座现代化的、目前省内最大的综合性体育馆';
+    info1.img = 's-图片/体育馆.png';
+
+    info2.name = '黑龙江大学联通广场';
+    info2.num = 2;
+    info2.Info = '类似操场，有塑胶跑道，中间是绿色草皮，树下有石桌石凳供学生学习。';
+    info2.img = 's-图片/联通广场.png';
+    
+    info3.name = '黑龙江大学体育场';
+    info3.num = 3;
+    info3.Info = '为学生体育赛事提供场地。';
+    info3.img = 's-图片/体育场.png';
+    
+    info4.name = '黑龙江大学A区食堂';
+    info4.num = 4;
+    info4.Info = '黑龙江大学最大的食堂';
+    info4.img = 's-图片/A区食堂.png';
+    
+    info5.name = '黑龙江大学汇文楼';
+    info5.num = 5;
+    info5.Info = '黑龙江大学的汇文楼，主楼的双胞胎，教室很多，可以容纳几千人一起上课';
+    info5.img = 's-图片/汇文楼.png';
+    
+    info6.name = '黑龙江大学综合楼';
+    info6.num = 6;
+    info6.Info = '综合各种功能';
+    info6.img = 's-图片/综合楼.png';
+
+    info7.name = '黑龙江大学C区3号楼';
+    info7.num = 7;
+    info7.Info = 'c区教学楼，是同学上课、自习的主要教学楼';
+    info7.img = 's-图片/三号楼.png';
+    
+    info8.name = '黑龙江大学C区4号楼';
+    info8.num = 8;
+    info8.Info = '计算机科学技术学院、软件学院教学楼。配备外语教学语音室。地下创业园';
+    info8.img = 's-图片/四号楼.png';
+    
+    info9.name = '黑龙江大学艺术楼';
+    info9.num = 9;
+    info9.Info = '除了有一个艺术楼，周边都是宿舍楼，学生有空就去那里走走，温馨又热闹';
+    info9.img = 's-图片/艺术楼.png';
+
+    info10.name = '黑龙江大学游泳馆';
+    info10.num = 10;
+    info10.Info = '包括游泳馆和健身馆，致力为学生提供良好的健身、有用环境';
+    info10.img = 's-图片/游泳馆.png';
+
+    allInfo.push(info0);
+    allInfo.push(info1);
+    allInfo.push(info2);
+    allInfo.push(info3);
+    allInfo.push(info4);
+    allInfo.push(info5);
+    allInfo.push(info6);
+    allInfo.push(info7);
+    allInfo.push(info8);
+    allInfo.push(info9);
+    allInfo.push(info10);
+    this.showGraph = showGraph;
+    this.Dijkstra = Dijkstra;
+    this.marked = [];
+    for (var i = 0; i < this.vertices; i++) {
+        this.marked[i] = false;
+    }
+    this.Weight = [];
+    for (var i = 0; i < 11; i++) {
+        Weight[i] = new Array();
+        for (var j = 0; j < 11; j++) {
+            Weight[i][j] = INTMAX;
+        }
+    }
+    Weight[0][1] = 10;
+    Weight[1][0] = 10;
+    
+    Weight[0][2] = 15;
+    Weight[2][0] = 15;
+    
+    Weight[0][4] = 102;
+    Weight[4][0] = 102;
+    
+    Weight[1][2] = 20;
+    Weight[2][1] = 20;
+
+    Weight[1][3] = 45;
+    Weight[3][1] = 45;
+    
+    Weight[2][3] = 70;
+    Weight[3][2] = 70;
+    
+    Weight[2][4] = 100;
+    Weight[4][2] = 100;
+    
+    Weight[3][5] = 30;
+    Weight[5][3] = 30;
+    
+    Weight[3][4] = 100;
+    Weight[4][3] = 100;
+    
+    Weight[3][6] = 80;
+    Weight[6][3] = 80;
+    
+    Weight[6][4] = 30;
+    Weight[4][6] = 30;
+    
+    Weight[6][5] = 60;
+    Weight[5][6] = 60;
+    
+    Weight[6][7] = 15;
+    Weight[7][6] = 15;
+    
+    Weight[7][8] = 10;
+    Weight[8][7] = 10;
+    
+    Weight[6][8] = 10;
+    Weight[8][6] = 10;
+    
+    Weight[8][9] = 40;
+    Weight[9][8] = 40;
+    
+    Weight[7][10] = 25;
+    Weight[10][7] = 25;
+    
+    Weight[9][10] = 5;
+    Weight[10][9] = 5;
+}
+var v0 = info0.num; // 源点
+var b = this.allInfo.length; // 顶点数
+// console.log(b);
+var INTMAX = 32767;
+var D = new Array();//记录从源点到终点的当前最短路径长度（有弧权值/INTMAX）
+var path = new Array();//记录从源点到终点的当前最短路径上直接前驱的顶点序号（有弧v0/-1）
+var marked = new Array();//记录是否已经确定最短路径长度（true/false）
+for (var i = 0; i < 10; i++) {
+    D[i] = this.Weight[v0][i];
+}
+
+// <!-- 迪杰斯特拉算法 -->求某个源点到其余各顶点的最短路径
+function Dijkstra(v0) {
+    //初始化
+    for (var v = 0; v < b; ++v) {
+        marked[v] = false;//初始化marked
+        D[v] = this.Weight[v0][v];//将v0到各终点的最短路径初始化为权值
+        if (D[v] < INTMAX) {//如果v0和各顶点之间有弧将顶点前驱置为v0，否则-1
+            path[v] = v0;
+        } else {
+            path[v] = -1;
+        }
+    }
+    marked[v0] = true;//将源点v0加到marked[]中
+    D[v0] = 0;
+    //主循环
+    for (var i = 1; i < b; ++i) {
+        var min = INTMAX;
+        for (var w = 0; w < b; ++w) {
+            if (!marked[w] && D[w] < min) {
+                v = w;
+                min = D[w];//选择一条当前的最短路径，终点为v
+            }
+        }
+        marked[v] = true;
+        for (var w = 0; w < b; ++w) {
+            if (!marked[w] && (D[v] + this.Weight[v][w] < D[w])) {
+                D[w] = D[v] + this.Weight[v][w];
+                path[w] = v;
+            }
+        }
+    }
+}
+
+function main() {
+    var str=["黑龙江大学主楼","黑龙江大学体育馆","黑龙江大学联通广场","黑龙江大学体育场","黑龙江大学A区食堂","黑龙江大学汇文楼",
+            "黑龙江大学综合楼","黑龙江大学C区3号楼","黑龙江大学C区4号楼","黑龙江大学艺术楼","黑龙江大学游泳馆"];
+    var ipt = document.getElementById('start');//input搜索框value
+    var v=ipt.value;
+    // Dijkstra(v0)
+    for(var i=0;i<str.length;i++)
+    {
+        if(v==str[i])
+        {
+            if (i != v0) 
+            {
+                Dijkstra(v0);
+                document.getElementById("showw").innerHTML = ("主楼到" + v + "最短距离是：" + D[i] + "，路径是：" +v );
+                var t = path[i];
+                while (t != v0) 
+                {
+                    document.getElementById("showw").innerHTML += "-->" + str[t];
+                    t = path[t];
+                }
+                document.getElementById("showw").innerHTML += "-->" + "主楼";
+            }
+            break;
+        }
+    }
+}
+var dist = new Array();
+for (var i = 0; i < 11; i++) {
+    dist[i] = new Array();
+    for (var j = 0; j < 11; j++) {
+        dist[i][j] = this.Weight[i][j];
+    }
+}
+var pash = new Array();
+for (var i = 0; i < 11; i++) {
+    pash[i] = new Array();
+    for (var j = 0; j < 11; j++) {
+        pash[i][j] = -1;
+    }
+}
+// <!-- 弗洛伊德算法 -->
+function Floyd() {
+    for (var i = 0; i < b; ++i) {
+        for (var j = 0; j < b; ++j) {
+            dist[i][j] = this.Weight[i][j];
+            if (dist[i][j] < INTMAX && i != j) {
+                pash[i][j] = j;
+            } else {
+                pash[i][j] = -1;
+            }
+        }
+    }
+    for (var k = 0; k < b; ++k) {
+        for (var i = 0; i < b; ++i) {
+            for (var j = 0; j < b; ++j) {
+                if (dist[i][k] + dist[k][j] < dist[i][j]) {
+                    dist[i][j] = dist[i][k] + dist[k][j];
+                    pash[i][j] = pash[i][k];
+                }
+            }
+        }
+    }
+}
+
+function main1() {
+    var vl1 = document.getElementById("start2").value;
+        var vl2 = document.getElementById("final2").value;
+        walking.search([
+            {keyword: vl1,city:'哈尔滨'},
+            {keyword: vl2,city:'哈尔滨'}
+        ]);
+    var str1=["黑龙江大学主楼","黑龙江大学体育馆","黑龙江大学联通广场","黑龙江大学体育场","黑龙江大学A区食堂","黑龙江大学汇文楼","黑龙江大学综合楼","黑龙江大学C区3号楼","黑龙江大学C区4号楼","黑龙江大学艺术楼","黑龙江大学游泳馆"];
+    var ipt1 = document.getElementById('start2');
+    var v1=ipt1.value;
+    var str2=["黑龙江大学主楼","黑龙江大学体育馆","黑龙江大学联通广场","黑龙江大学体育场","黑龙江大学A区食堂","黑龙江大学汇文楼","黑龙江大学综合楼","黑龙江大学C区3号楼","黑龙江大学C区4号楼","黑龙江大学艺术楼","黑龙江大学游泳馆"];
+    var ipt2 = document.getElementById('final2');
+    var v2=ipt2.value;
+    // Floyd();
+    for (var i = 0; i < 11; ++i) {
+        if(v1==str1[i])
+        {
+            for (var j = 0; j < 11; ++j) 
+            {
+                if(v2==str2[j])
+                {
+                    Floyd();
+                    document.getElementById("showw").innerHTML =str1[i] + "到" + str2[j] + "的最短长度:";
+                    document.getElementById("showw").innerHTML +=dist[i][j];
+                    var k = pash[i][j];
+                    if (k == -1) {
+                        document.getElementById("showw").innerHTML +=str1[i] + "和" + str2[j] + "之间没有路径";
+                    } else {
+                        document.getElementById("showw").innerHTML +="最短路径为：" + str1[i];
+                        while (k != j) {
+                            document.getElementById("showw").innerHTML +="-->" + str1[k] ;
+                            k = pash[k][j];
+                        }
+                        document.getElementById("showw").innerHTML+= "->" + str2[j];
+                    }
+                }
+            }
+        }
+    }
+}
+  </script>
+</body>
+</html>

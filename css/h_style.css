@@ -1,0 +1,31 @@
+/* 背景图片（标题）
+自适应
+居中 */
+#H_pic{
+    position: relative;
+    top:10px;
+    height: 10%;
+    width: 50%;
+    background-image: url("../s-图片/t.png");
+    margin: 0 auto;
+    background-size:100% 100%;
+}
+#h-button1{
+    position: fixed;
+    bottom: 3%;
+    left: 58%;
+    z-index: 999;
+}
+#h-button2{
+    position: fixed;
+    bottom: 3%;
+    left: 55%;
+    z-index: 999;
+}
+ #showw{
+    position: absolute;
+    width: 25%;
+    height: 100px;
+    top: 100px;
+    right: 7%;
+} 

@@ -1,0 +1,157 @@
+/* 背景图片（标题）
+自适应
+居中 */
+#H_pic{
+    height: 10%;
+    width: 50%;
+    background-image: url("../s-图片/t.png");
+    margin: auto;
+    background-size:100% 100%;
+}
+#h-button1{
+    position: fixed;
+    bottom: 5%;
+    left: 58%;
+    z-index: 999;
+}
+#h-button2{
+    position: fixed;
+    bottom: 5%;
+    left: 55%;
+    z-index: 999;
+}
+ #showw{
+    position: absolute;
+    width: 25%;
+    height: 100px;
+    top: 100px;
+    right: 7%;
+    background: #da3131;
+} 
+
+
+ #login-area{
+     float:right;
+     margin-top:10px;
+     position:relative;
+    }
+    .login-btn {
+         font-family:'微软雅黑';  
+        width:100px;
+        height:40px;
+        background:#c9394a;
+        text-align:center;
+        display:block;
+        line-height:40px;
+        font-size:14px;
+        opacity:.9;
+        text-decoration:none;
+        color:#fff; 
+        cursor:pointer;
+}
+.login-btn:hover { 
+    opacity:1;
+}
+    /* 当鼠标悬停按钮上时 */
+
+/*设置中心*/
+
+button{
+    border:none;
+}
+/* button:hover{
+    background: rgb(0, 255, 221);
+} */
+body { 
+  background:#f5f5f5;
+  font-family:"微软雅黑";
+}
+   
+  
+
+#close{ 
+	/* background:url(../img/close.png) no-repeat;  */
+	width:30px; 
+	height:30px; 
+	cursor:pointer; 
+	position:absolute; 
+	right:5px; 
+	top:15px; 
+	text-indent:-999em;
+	}
+#mask{ 
+	background-color:white;
+	opacity:0.5;
+	filter: alpha(opacity=50); 
+	position:absolute; 
+	left:0;
+	top:0;
+	z-index:1000;
+	}
+#login{ 
+	position:fixed;
+	z-index:1001;
+	}
+#loginCon{ 
+	color: white;
+	position:relative; 
+	width:670px;
+    height:380px;
+	background-color: white;
+	font-weight: bold;
+	font-size: 120%;
+     background:url(../s-图片/loginBg.png) #2A2C2E center center no-repeat; 
+    /* background: url(../img/loginBg.png) #2A2C2E center center no-repeat; */
+    background-size: 100% 100%;
+	}
+
+body { 
+  background:#f5f5f5;
+  font-family:"微软雅黑";
+}
+
+#s_jieshao{
+	/* color: white; */
+	padding: 10px;
+	/* height: 57%; */
+	width: 25%;
+	background-color: #ddd;	
+	position: fixed;
+	top: 32%;
+	right: 7%;
+	background: rgba(200, 200, 200, 0.5)
+	
+}
+
+/*==============================
+
+Element
+
+==============================*/
+/*h1 {
+  font-size: 46px;
+  width: 300px;
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}*/
+
+body {
+	background-image: url(../img/background.jpg);
+	background-position: 0px 0px;
+  }
+  
+  /*==============================
+  
+  Class
+  
+  ==============================*/
+  
+  /*# sourceMappingURL=style.css.map */
+  
